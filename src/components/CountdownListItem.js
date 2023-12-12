@@ -3,13 +3,15 @@ import { StyleSheet, View } from "react-native";
 import { colors } from "../utils/theme";
 import CommonButton from "./CommonButton";
 import TimerComponent from "./TimerComponent";
+import TimerInputComponent from "./TimerInputComponent";
 
 function CountdownListItem({ item, index }) {
     const [isStarted, setIsStarted] = useState(false)
-    const [remainingTime, setRemainingTime] = useState(item.time)
+    const [remainingTime, setRemainingTime] = useState(60)
 
 
     let interval;
+
     useEffect(() => {
         if (isStarted) {
             if (remainingTime > 0) {
@@ -32,10 +34,14 @@ function CountdownListItem({ item, index }) {
         setIsStarted(!isStarted)
     }
 
+    function onTimeInputChange(text){
+        setRemainingTime(parseInt(text))
+    }
+
     return (
         <View style={styles.fullContainer}>
             <View style={styles.timerContainer}>
-                <TimerComponent time={remainingTime} />
+                <TimerInputComponent time={remainingTime} onValueChange={onTimeInputChange} />
             </View>
             <View style={styles.formattedTimeContainer}>
                 <TimerComponent time={remainingTime} isFormatted={true} />

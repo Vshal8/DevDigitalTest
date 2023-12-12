@@ -26,7 +26,7 @@ function TimerComponent({ time,isFormatted }) {
     return (
         <View style={styles.fullContainer}>
             <Text style={styles.timerText}>
-                {isFormatted?formattedTime:time}
+                {formattedTime}
             </Text>
         </View>
     )
