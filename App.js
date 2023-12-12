@@ -10,25 +10,18 @@ import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import MainScreen from './src/screens/MainScreen';
 
 function App() {
   return (
-    <SafeAreaView style={{flex:1}}>
-
+    <SafeAreaView style={{ flex: 1 }}>
+      <MainScreen />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
- 
+
 });
 
 export default App;
