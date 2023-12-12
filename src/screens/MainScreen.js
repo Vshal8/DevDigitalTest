@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import CommonButton from "../components/CommonButton";
 import { commonStyles } from "../utils/theme";
+import CountdownListItem from "../components/CountdownListItem";
 
 
 
@@ -12,25 +13,30 @@ function MainScreen() {
 
     function SingleListItem({ item, index }) {
         return (
-            <View />
+            <CountdownListItem item={item} index={index}/>
         )
     }
 
     function onAddButtonPress() {
         let arrCountdownTimerList = [...countdownTimerList]
         let objNewTimer = {
-            id: arrCountdownTimerList.length
+            id: arrCountdownTimerList.length,
+            time: 60
         }
         arrCountdownTimerList.push(objNewTimer)
+        setCountdownTimerList(arrCountdownTimerList)
     }
+
+    const listKeyExtractor = useCallback((item, index) => { return item.id.toString() }, [])
 
     return (
         <View style={commonStyles.screenContainer}>
-            <CommonButton buttonTitle={'Add Timer'} onButtonPress={onAddButtonPress} />
-            <View style={styles.screenInnerContainer}>
+            <CommonButton buttonTitle={'Add Timer'} onButtonPress={onAddButtonPress} customButtonStyles={styles.addButttonContainer} />
+            <View style={commonStyles.flexFull}>
                 <FlatList
                     data={countdownTimerList}
                     renderItem={SingleListItem}
+                    keyExtractor={listKeyExtractor}
                 />
             </View>
         </View>
@@ -40,8 +46,10 @@ function MainScreen() {
 export default MainScreen;
 
 const styles = StyleSheet.create({
-    screenInnerContainer: {
-        flex: 1,
-        marginTop: 15
+    addButttonContainer: {
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 12,
+        alignSelf: 'center'
     }
 })
